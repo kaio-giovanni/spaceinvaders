@@ -1,7 +1,7 @@
 import pygame
 
-from src.sprites.bullet import Bullet
-from src.sprites.game_object import GameObject
+from .bullet import Bullet
+from .game_object import GameObject
 
 
 class SpaceShip(GameObject):

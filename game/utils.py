@@ -3,8 +3,8 @@ import time
 import collections
 import pygame
 
-from src.sprites.invader import Invader
-from src.sprites.life import Life
+from sprites.invader import Invader
+from sprites.life import Life
 
 
 def init():

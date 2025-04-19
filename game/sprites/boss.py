@@ -1,6 +1,6 @@
 import pygame
 import random
-from src.sprites.game_object import GameObject
+from .game_object import GameObject
 
 
 positions = [6000, 8000, 12000, 15000]

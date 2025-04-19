@@ -1,5 +1,5 @@
 import pygame
-from src.sprites.game_object import GameObject
+from .game_object import GameObject
 
 
 class Life(GameObject):

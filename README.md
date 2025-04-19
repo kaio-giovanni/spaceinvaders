@@ -2,7 +2,7 @@
 
 A re-creation of the classic arcade game **Space Invaders** developed using Python and PyGame. Relive the nostalgia as you shoot down waves of alien invaders in this entertaining and challenging game.
 
-  <img src="assets/preview/SpaceInvaders.gif" alt="game preview" />
+  <img src="game/assets/preview/SpaceInvaders.gif" alt="game preview" />
 
 ## Setup
 
@@ -45,7 +45,7 @@ pip install --require-virtualenv -r ./requirements.txt
 
 ```bash
 
-python -m src
+python game/main.py
 ```
 
 ## Author
