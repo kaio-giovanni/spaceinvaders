@@ -1,19 +1,20 @@
 import os
 import random
 import time
+import asyncio
 
 import pygame
 
-from src.sprites.boss import Boss
-from src.sprites.bullet import Bullet
-from src.sprites.explosion import Explosion
-from src.sprites.game_object import GameObject
-from src.sprites.invader import Invader
-from src.sprites.invader_bullets import InvaderBullet
-from src.sprites.label import Label
-from src.sprites.life import Life
-from src.sprites.spaceship import SpaceShip
-from src.utils.utils import init, quit_game, create_font, create_player_lifes, remove_player_lifes, create_invaders
+from sprites.boss import Boss
+from sprites.bullet import Bullet
+from sprites.explosion import Explosion
+from sprites.game_object import GameObject
+from sprites.invader import Invader
+from sprites.invader_bullets import InvaderBullet
+from sprites.label import Label
+from sprites.life import Life
+from sprites.spaceship import SpaceShip
+from utils import init, quit_game, create_font, create_player_lifes, remove_player_lifes, create_invaders
 
 # SCREEN
 SCREEN_WIDTH = 800
@@ -30,12 +31,12 @@ SPRINGREEN_COLOR = (0, 250, 154)
 
 DIRECTORY = os.getcwd()
 
-SPRITE_SHEET_PATH = DIRECTORY + "/assets/images/spritesheet.png"
+SPRITE_SHEET_PATH = DIRECTORY + "/game/assets/images/spritesheet.png"
 SPRITE_SHEET = pygame.image.load(SPRITE_SHEET_PATH)
-FONT_PATH = DIRECTORY + "/assets/fonts/space_invaders.ttf"
+FONT_PATH = DIRECTORY + "/game/assets/fonts/space_invaders.ttf"
 
 
-def menu_screen(surface: pygame.surface.Surface) -> None:
+async def menu_screen(surface: pygame.surface.Surface) -> None:
     black_screen = pygame.Surface(SCREEN_SIZE.size)
     black_screen.fill(BLACK_COLOR)
 
@@ -89,6 +90,7 @@ def menu_screen(surface: pygame.surface.Surface) -> None:
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_RETURN]:
                     start_game = True
+        await asyncio.sleep(0)
 
 
 def level_screen(surface: pygame.surface.Surface, level: int) -> None:
@@ -122,7 +124,8 @@ def handle_keyboard_events(p: SpaceShip):
                 p.shoot()
 
 
-def game_screen(surface: pygame.surface.Surface, level: int) -> int:
+async def main(surface: pygame.surface.Surface, level: int) -> int:
+    await menu_screen(surface)
     level_screen(surface, level)
     container_all = pygame.sprite.RenderUpdates()
     container_shields = pygame.sprite.Group()
@@ -217,6 +220,7 @@ def game_screen(surface: pygame.surface.Surface, level: int) -> int:
         dirty = container_all.draw(surface)
         pygame.display.update(dirty)
         clock.tick(framerate)
+        await asyncio.sleep(0)
 
     print("Game Over!")
     container_all.empty()
@@ -224,8 +228,7 @@ def game_screen(surface: pygame.surface.Surface, level: int) -> int:
     container_invaders.empty()
     container_bullets.empty()
     container_player.empty()
-    return score
-    # quit_game()
+    gameover_screen(surface, score)
 
 
 def gameover_screen(surface: pygame.surface.Surface, total_score: int):
@@ -259,6 +262,4 @@ if __name__ == '__main__':
     pygame.display.set_caption("Space Invaders")
     deep_display = pygame.display.mode_ok(SCREEN_SIZE.size, 0, 32)
     s = pygame.display.set_mode(SCREEN_SIZE.size, 0, deep_display)
-    menu_screen(s)
-    player_score = game_screen(s, 1)
-    gameover_screen(s, player_score)
+    asyncio.run(main(s, 1))

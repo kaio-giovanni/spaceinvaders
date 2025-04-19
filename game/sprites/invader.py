@@ -1,7 +1,7 @@
 import pygame
 
-from src.sprites.game_object import GameObject
-from src.sprites.invader_bullets import InvaderBullet
+from .game_object import GameObject
+from .invader_bullets import InvaderBullet
 
 INVADER_CLIPS = {
     "invader_1": [pygame.Rect(7, 225, 16, 16), pygame.Rect(40, 225, 16, 16)],

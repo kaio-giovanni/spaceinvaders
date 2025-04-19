@@ -1,13 +1,13 @@
 import pygame
 
-from src.sprites.game_object import GameObject
+from .game_object import GameObject
 
 
-class InvaderBullet(GameObject):
+class Bullet(GameObject):
     containers = None
 
-    def __init__(self, position: tuple[float, float], img_size=(2, 12), direction=1, color=(255, 0, 0), speed=7):
-        super().__init__(position, img_size, [pygame.Rect(183, 444, 4, 18)], InvaderBullet.containers)
+    def __init__(self, position: tuple[float, float], img_size=(2, 12), direction=-1, color=(0, 250, 154), speed=8):
+        super().__init__(position, img_size, [pygame.Rect(183, 444, 4, 18)], Bullet.containers)
         self.image.fill(color)
         self.rect = self.image.get_rect().move(position)
         self.direction = direction

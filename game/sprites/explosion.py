@@ -1,6 +1,6 @@
 import pygame
 
-from src.sprites.game_object import GameObject
+from .game_object import GameObject
 
 
 class Explosion(GameObject):
